@@ -206,12 +206,8 @@ document
 
 
             /* SAVE LOGGED-IN USER */
-
-            localStorage.setItem(
-                "meloraUser",
-                JSON.stringify(data.user)
-            );
-
+             localStorage.setItem("meloraUser", JSON.stringify(data.user));
+             localStorage.setItem("meloraToken", data.token);
 
             showLoginToast(
                 "Login successful! 🎵"
