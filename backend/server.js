@@ -10,31 +10,34 @@ const songRoutes = require("./routes/songs");
 const likeRoutes = require("./routes/likes");
 const app = express();
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 
 /* MIDDLEWARE */
 
-app.use(cors());
+app.use(cors({
+    origin: [
+        "https://melora-backend-red.vercel.app/login.html"
+    ]
+}));
 
 app.use(express.json());
 
 
 /* DATABASE */
 
-mongoose.connect("mongodb://127.0.0.1:27017/melora")
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
-
-        console.log("MongoDB connected successfully");
-
+        console.log("MongoDB Atlas connected successfully");
     })
+    
     .catch((error) => {
 
         console.log("MongoDB connection error:", error);
-
+    
     });
 
-
+    
 /* ROUTES */
 
 app.get("/test", (req, res) => {
