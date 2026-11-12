@@ -689,7 +689,7 @@
     <!-- ================= SESSION ONLY ================= -->
 
     <script src="js/session.js"></script>
-
+    <script src="js/config.js"></script>
 
     <script>
 
@@ -730,7 +730,7 @@
             try {
 
                 const response = await fetch(
-                    "http://localhost:5000/api/likes/" + user.id
+                    "fetch(`${API_BASE}/api/likes`)" + user.id
                 );
 
                 if (!response.ok) {
@@ -779,7 +779,7 @@
             try {
 
                 const response = await fetch(
-                    "http://localhost:5000/api/songs"
+                    "fetch(`${API_BASE}/api/songs`)"
                 );
 
                 if (!response.ok) {
@@ -1006,7 +1006,7 @@
 
                 const response =
                     await fetch(
-                        "http://localhost:5000/api/likes",
+                        "fetch(`${API_BASE}/api/likes`)",
                         {
                             method: "POST",
 

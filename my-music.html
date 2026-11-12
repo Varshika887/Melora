@@ -589,7 +589,7 @@
     <!-- SESSION -->
 
     <script src="js/session.js"></script>
-
+<script src="js/config.js"></script>
     <script>
 
         checkLogin();
@@ -646,9 +646,7 @@
             try {
 
                 const response =
-                    await fetch(
-                        `http://localhost:5000/api/likes/${loggedInUser.id}`
-                    );
+                    await fetch(`${API_BASE}/api/likes/${loggedInUser.id}`);
 
 
                 if (!response.ok) {
@@ -893,8 +891,7 @@
             try {
 
                 const response =
-                    await fetch(
-                        "http://localhost:5000/api/likes",
+                    await fetch(`${API_BASE}/api/likes`,
                         {
                             method: "POST",
 
