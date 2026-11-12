@@ -17,8 +17,11 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors({
     origin: [
-        "https://melora-backend-red.vercel.app/login.html"
-    ]
+        "https://melora-backend-red.vercel.app", 
+        "http://localhost:3000",                
+        "http://127.0.0.1:3000"
+    ],
+    credentials: true
 }));
 
 app.use(express.json());
