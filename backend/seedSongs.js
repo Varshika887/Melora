@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 const Song = require("./models/Song");
 
-mongoose.connect("mongodb://127.0.0.1:27017/melora")
+mongoose.connect("mongodb+srv://Varshika:%40Sivavarshika08@cluster0.2wqotpe.mongodb.net/melora?retryWrites=true&w=majority")
     .then(async () => {
-
         console.log("MongoDB connected");
 
         const songs = [
@@ -17,7 +16,6 @@ mongoose.connect("mongodb://127.0.0.1:27017/melora")
                 cover: "assets/Images/melora-logo.png",
                 audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
             },
-
             {
                 title: "Hindi Vibes",
                 artist: "Melora Artist",
@@ -28,7 +26,6 @@ mongoose.connect("mongodb://127.0.0.1:27017/melora")
                 cover: "assets/Images/melora-logo.png",
                 audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
             },
-
             {
                 title: "Tamil Chill",
                 artist: "Melora Artist",
@@ -39,7 +36,6 @@ mongoose.connect("mongodb://127.0.0.1:27017/melora")
                 cover: "assets/Images/melora-logo.png",
                 audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
             },
-
             {
                 title: "English Energy",
                 artist: "Melora Artist",
@@ -56,7 +52,6 @@ mongoose.connect("mongodb://127.0.0.1:27017/melora")
         await Song.insertMany(songs);
 
         console.log("Songs added successfully");
-
         mongoose.connection.close();
     })
     .catch(error => {
