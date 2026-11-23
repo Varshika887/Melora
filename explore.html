@@ -62,6 +62,32 @@
             color: #71806b;
         }
 
+        .language-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .lang-chip {
+            border: 1px solid rgba(113, 128, 107, 0.25);
+            background: var(--white);
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .lang-chip.active,
+        .lang-chip:hover {
+            background: var(--sage);
+            color: #fff;
+            border-color: var(--sage);
+        }
+
         /* ================= LIKE BUTTON ================= */
 
         .explore-song-info {
@@ -177,40 +203,21 @@
 
 
         <div class="sidebar-bottom">
-
-            <a href="#" class="nav-item">
+            <a href="settings.html" class="nav-item">
                 <span>⚙</span>
                 <p>Settings</p>
             </a>
-
-            <a
-                href="#"
-                class="nav-item"
-                onclick="logoutUser()"
-            >
+            <a href="#" class="nav-item" onclick="logoutUser()">
                 <span>🚪</span>
                 <p>Logout</p>
             </a>
-
-
-            <a href="#" class="profile-small">
-
-                <div class="avatar">
-                    V
-                </div>
-
+            <a href="profile.html" class="profile-small">
+                <div class="avatar">V</div>
                 <div>
-
                     <strong>Varshika</strong>
-
-                    <small>
-                        View Profile
-                    </small>
-
+                    <small>View Profile</small>
                 </div>
-
             </a>
-
         </div>
 
     </aside>
@@ -271,34 +278,36 @@
 
         </header>
 
-<section class="section">
+        <section class="section">
 
-    <div class="section-heading">
-        <div>
-            <p class="mini-title">EXTERNAL MUSIC DISCOVERY</p>
-            <h2>Discover More Songs</h2>
-        </div>
-    </div>
+            <div class="section-heading">
+                <div>
+                    <p class="mini-title">EXTERNAL MUSIC DISCOVERY</p>
+                    <h2>Discover More Songs</h2>
+                </div>
+            </div>
 
-    <div class="search-box">
-        <input
-            type="text"
-            id="externalSearch"
-            placeholder="Search songs or artists..."
-        >
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="externalSearch"
+                    placeholder="Search songs or artists..."
+                    onkeydown="if (event.key === 'Enter') searchExternalMusic()"
+                >
 
-        <button onclick="searchExternalMusic()">
-            Search
-        </button>
-    </div>
+                <button type="button" onclick="searchExternalMusic()">
+                    Search
+                </button>
+            </div>
 
-    <div
-        id="externalResults"
-        class="liked-list"
-        style="margin-top:20px;"
-    ></div>
+            <div
+                id="externalResults"
+                class="liked-list"
+                style="margin-top:20px;"
+            ></div>
 
-</section>
+        </section>
+
         <!-- ================= HEADER ================= -->
 
         <section class="explore-header">
@@ -336,42 +345,46 @@
 
                 </div>
 
+                <button class="see-all" type="button" onclick="resetFilters()">
+                    Show All →
+                </button>
+
             </div>
 
 
             <div class="genre-grid">
 
-                <button class="genre-card genre-pop">
+                <button class="genre-card genre-pop" type="button">
                     <span>♪</span>
                     <strong>Pop</strong>
                     <small>Feel-good hits</small>
                 </button>
 
-                <button class="genre-card genre-chill">
+                <button class="genre-card genre-chill" type="button">
                     <span>🌿</span>
                     <strong>Lo-fi</strong>
-                    <small>Relax & focus</small>
+                    <small>Relax &amp; focus</small>
                 </button>
 
-                <button class="genre-card genre-romance">
+                <button class="genre-card genre-romance" type="button">
                     <span>♡</span>
                     <strong>Romance</strong>
                     <small>Love songs</small>
                 </button>
 
-                <button class="genre-card genre-rock">
+                <button class="genre-card genre-rock" type="button">
                     <span>⚡</span>
                     <strong>Rock</strong>
-                    <small>Power & energy</small>
+                    <small>Power &amp; energy</small>
                 </button>
 
-                <button class="genre-card genre-classical">
+                <button class="genre-card genre-classical" type="button">
                     <span>♫</span>
                     <strong>Classical</strong>
                     <small>Timeless melodies</small>
                 </button>
 
-                <button class="genre-card genre-telugu">
+                <button class="genre-card genre-telugu" type="button">
                     <span>🎵</span>
                     <strong>Telugu</strong>
                     <small>Regional favourites</small>
@@ -382,7 +395,7 @@
         </section>
 
 
-        <!-- ================= TRENDING ================= -->
+        <!-- ================= TRENDING BY LANGUAGE ================= -->
 
         <section class="section">
 
@@ -394,12 +407,21 @@
                         LISTEN NOW
                     </p>
 
-                    <h2>
+                    <h2 id="trendingHeading">
                         Trending songs
                     </h2>
 
                 </div>
 
+            </div>
+
+            <div class="language-bar" id="languageBar">
+                <button class="lang-chip active" type="button" onclick="selectLanguage('All', this)">All Languages</button>
+                <button class="lang-chip" type="button" onclick="selectLanguage('Trending', this)">Trending Hits</button>
+                <button class="lang-chip" type="button" onclick="selectLanguage('Telugu', this)">Telugu</button>
+                <button class="lang-chip" type="button" onclick="selectLanguage('Hindi', this)">Hindi</button>
+                <button class="lang-chip" type="button" onclick="selectLanguage('Tamil', this)">Tamil</button>
+                <button class="lang-chip" type="button" onclick="selectLanguage('English', this)">English</button>
             </div>
 
 
@@ -442,32 +464,32 @@
 
             <div class="mood-explore-grid">
 
-                <button onclick="selectMood('Happy')">
+                <button type="button" onclick="selectMood('Happy')">
                     ☀️
                     <span>Happy</span>
                 </button>
 
-                <button onclick="selectMood('Chill')">
+                <button type="button" onclick="selectMood('Chill')">
                     🌿
                     <span>Chill</span>
                 </button>
 
-                <button onclick="selectMood('Focus')">
+                <button type="button" onclick="selectMood('Focus')">
                     ☕
                     <span>Focus</span>
                 </button>
 
-                <button onclick="selectMood('Sad')">
+                <button type="button" onclick="selectMood('Sad')">
                     🌙
                     <span>Sad</span>
                 </button>
 
-                <button onclick="selectMood('Energetic')">
+                <button type="button" onclick="selectMood('Energetic')">
                     ⚡
                     <span>Energetic</span>
                 </button>
 
-                <button onclick="selectMood('Romantic')">
+                <button type="button" onclick="selectMood('Romantic')">
                     ♡
                     <span>Romantic</span>
                 </button>
@@ -601,6 +623,7 @@
             <button
                 class="like-button"
                 id="playerLikeButton"
+                type="button"
             >
                 ♡
             </button>
@@ -612,19 +635,20 @@
 
             <div class="control-buttons">
 
-                <button>
+                <button type="button" onclick="playAdjacentSong(-1)">
                     ↶
                 </button>
 
                 <button
                     class="play-button"
                     id="mainPlayButton"
+                    type="button"
                     onclick="toggleDynamicPlay()"
                 >
                     ▶
                 </button>
 
-                <button>
+                <button type="button" onclick="playAdjacentSong(1)">
                     ↷
                 </button>
 
@@ -638,7 +662,7 @@
                 </span>
 
 
-                <div class="progress-bar">
+                <div class="progress-bar" onclick="seekExploreProgress(event)">
 
                     <div
                         class="progress"
@@ -659,11 +683,11 @@
 
         <div class="player-options">
 
-            <button>
+            <button type="button">
                 ♧
             </button>
 
-            <button>
+            <button type="button">
                 🔊
             </button>
 
@@ -693,1041 +717,530 @@
 
     <script>
 
-        /* =========================================
-           CHECK LOGIN
-        ========================================= */
-
-        checkLogin();
-
-
-        /* =========================================
-           VARIABLES
-        ========================================= */
+        if (typeof checkLogin === "function") {
+            checkLogin();
+        }
 
         let meloraSongs = [];
-
+        let displayedSongs = [];
         let currentAudio = null;
-
         let currentSongData = null;
-
         let likedSongIds = new Set();
 
-
-        /* =========================================
-           LOAD USER LIKES
-        ========================================= */
+        const fallbackCatalog = [
+            {
+                _id: "sample-tel-1",
+                title: "Samajavaragamana Vibe",
+                artist: "Sid Sriram Mix",
+                language: "Telugu",
+                genre: "Romance",
+                mood: "Romantic",
+                trending: true,
+                audioUrl: ""
+            },
+            {
+                _id: "sample-tel-2",
+                title: "Mass Beat Pulse",
+                artist: "Anirudh Tribute",
+                language: "Telugu",
+                genre: "Rock",
+                mood: "Energetic",
+                trending: true,
+                audioUrl: ""
+            },
+            {
+                _id: "sample-hin-1",
+                title: "Kesariya Dusk",
+                artist: "Arijit Style",
+                language: "Hindi",
+                genre: "Romance",
+                mood: "Romantic",
+                trending: true,
+                audioUrl: ""
+            },
+            {
+                _id: "sample-hin-2",
+                title: "Midnight Study Lo-Fi",
+                artist: "Amaan Beats",
+                language: "Hindi",
+                genre: "Lo-fi",
+                mood: "Focus",
+                trending: false,
+                audioUrl: ""
+            },
+            {
+                _id: "sample-tam-1",
+                title: "Kadal Breeze Melody",
+                artist: "Pradeep Tribute",
+                language: "Tamil",
+                genre: "Classical",
+                mood: "Chill",
+                trending: true,
+                audioUrl: ""
+            },
+            {
+                _id: "sample-tam-2",
+                title: "Chennai Pop Groove",
+                artist: "Shreya Studio",
+                language: "Tamil",
+                genre: "Pop",
+                mood: "Happy",
+                trending: false,
+                audioUrl: ""
+            },
+            {
+                _id: "sample-eng-1",
+                title: "Golden Hour",
+                artist: "JVKE",
+                language: "English",
+                genre: "Pop",
+                mood: "Happy",
+                trending: true,
+                audioUrl: ""
+            },
+            {
+                _id: "sample-eng-2",
+                title: "Rainy Window Notes",
+                artist: "Ed Acoustic",
+                language: "English",
+                genre: "Lo-fi",
+                mood: "Sad",
+                trending: false,
+                audioUrl: ""
+            }
+        ];
 
         async function loadUserLikes() {
-
-            const user = JSON.parse(
-                localStorage.getItem("meloraUser") || "null"
-            );
-
-            if (!user || !user.id) {
-                return;
-            }
+            const user = JSON.parse(localStorage.getItem("meloraUser") || "null");
+            const userId = user?.id || user?._id;
+            if (!userId || typeof API_BASE === "undefined") return;
 
             try {
-
-                const response = await fetch(
-                    "fetch(`${API_BASE}/api/likes`)" + user.id
-                );
-
-                if (!response.ok) {
-                    return;
-                }
+                const response = await fetch(`${API_BASE}/api/likes/${userId}`);
+                if (!response.ok) return;
 
                 const likes = await response.json();
-
                 likedSongIds = new Set(
-                    likes.map(function(like) {
-
-                        if (
-                            like.songId &&
-                            like.songId._id
-                        ) {
-                            return like.songId._id;
-                        }
-
-                        return like.songId;
-
-                    })
+                    (likes || []).map((like) =>
+                        like.songId && like.songId._id ? like.songId._id : like.songId
+                    )
                 );
-
             } catch (error) {
-
-                console.error(
-                    "Like loading error:",
-                    error
-                );
-
+                console.error("Like loading error:", error);
             }
         }
-
-
-        /* =========================================
-           LOAD SONGS
-        ========================================= */
 
         async function loadSongs() {
+            const songGrid = document.getElementById("exploreSongGrid");
 
-            const songGrid =
-                document.getElementById(
-                    "exploreSongGrid"
-                );
+            if (typeof API_BASE === "undefined") {
+                meloraSongs = fallbackCatalog;
+                displaySongs(meloraSongs);
+                return;
+            }
 
             try {
-
-                const response = await fetch(
-                    "fetch(`${API_BASE}/api/songs`)"
-                );
-
+                const response = await fetch(`${API_BASE}/api/songs`);
                 if (!response.ok) {
-
-                    throw new Error(
-                        "Unable to fetch songs"
-                    );
-
+                    throw new Error("Unable to fetch songs");
                 }
 
-                meloraSongs =
-                    await response.json();
-
-                displaySongs(
-                    meloraSongs
-                );
-
+                const data = await response.json();
+                meloraSongs = Array.isArray(data) && data.length ? data : fallbackCatalog;
+                displaySongs(meloraSongs);
             } catch (error) {
-
-                console.error(
-                    "Song loading error:",
-                    error
-                );
-
-                songGrid.innerHTML = `
-                    <div class="song-empty">
-                        ❌ Unable to load songs.
-                        <br>
-                        Make sure the Melora backend is running.
-                    </div>
-                `;
-
+                console.error("Song loading error:", error);
+                meloraSongs = fallbackCatalog;
+                displaySongs(meloraSongs);
+                showExploreToast("Showing sample catalog — start backend for live DB songs");
             }
         }
-
-
-        /* =========================================
-           DISPLAY SONGS
-        ========================================= */
 
         function displaySongs(songs) {
-
-            const songGrid =
-                document.getElementById(
-                    "exploreSongGrid"
-                );
-
+            const songGrid = document.getElementById("exploreSongGrid");
+            displayedSongs = Array.isArray(songs) ? songs : [];
             songGrid.innerHTML = "";
 
-
-            if (songs.length === 0) {
-
+            if (displayedSongs.length === 0) {
                 songGrid.innerHTML = `
                     <div class="song-empty">
-                        No songs found.
+                        No songs found for this filter.
+                    </div>
+                `;
+                return;
+            }
+
+            displayedSongs.forEach((song, index) => {
+                const card = document.createElement("article");
+                card.className = "explore-song-card";
+
+                const songId = song._id || song.id || `track-${index}`;
+                const liked = likedSongIds.has(songId);
+
+                card.innerHTML = `
+                    <div class="explore-cover explore-cover-${(index % 4) + 1}">
+                        ${
+                            song.cover
+                                ? `<img src="${song.cover}" alt="${escapeText(song.title)}">`
+                                : `<span>♪</span>`
+                        }
+                        <button class="song-play-button" type="button">▶</button>
+                    </div>
+
+                    <div class="explore-song-info">
+                        <div>
+                            <h3>${escapeText(song.title)}</h3>
+                            <p>${escapeText(song.artist)}</p>
+                            <span class="song-language">${escapeText(song.language || "Music")}</span>
+                            <span class="song-mood">${escapeText(song.mood || "Vibe")}${song.trending ? " • Trending" : ""}</span>
+                        </div>
+
+                        <button class="song-like-button ${liked ? "liked" : ""}" type="button">
+                            ${liked ? "♥" : "♡"}
+                        </button>
                     </div>
                 `;
 
-                return;
-            }
+                card.querySelector(".song-play-button").addEventListener("click", () => {
+                    playDynamicSong(song);
+                });
 
+                card.querySelector(".song-like-button").addEventListener("click", function () {
+                    toggleLike(songId, this);
+                });
 
-            songs.forEach(
-                function(song, index) {
-
-                    const card =
-                        document.createElement(
-                            "article"
-                        );
-
-
-                    card.className =
-                        "explore-song-card";
-
-
-                    const liked =
-                        likedSongIds.has(
-                            song._id
-                        );
-
-
-                    card.innerHTML = `
-
-                        <div class="explore-cover explore-cover-${(index % 4) + 1}">
-
-                            ${
-                                song.cover
-                                ?
-                                `
-                                <img
-                                    src="${song.cover}"
-                                    alt="${song.title}"
-                                >
-                                `
-                                :
-                                `
-                                <span>♪</span>
-                                `
-                            }
-
-
-                            <button
-                                class="song-play-button"
-                                type="button"
-                            >
-                                ▶
-                            </button>
-
-                        </div>
-
-
-                        <div class="explore-song-info">
-
-                            <div>
-
-                                <h3>
-                                    ${song.title}
-                                </h3>
-
-                                <p>
-                                    ${song.artist}
-                                </p>
-
-                                <span class="song-language">
-                                    ${song.language || "Unknown"}
-                                </span>
-
-                                <span class="song-mood">
-                                    ${song.mood || "Music"}
-                                </span>
-
-                            </div>
-
-
-                            <button
-                                class="song-like-button ${liked ? "liked" : ""}"
-                                type="button"
-                            >
-                                ${liked ? "♥" : "♡"}
-                            </button>
-
-                        </div>
-
-                    `;
-
-
-                    /* PLAY */
-
-                    const playButton =
-                        card.querySelector(
-                            ".song-play-button"
-                        );
-
-
-                    playButton.addEventListener(
-                        "click",
-                        function() {
-
-                            playDynamicSong(
-                                song
-                            );
-
-                        }
-                    );
-
-
-                    /* LIKE */
-
-                    const likeButton =
-                        card.querySelector(
-                            ".song-like-button"
-                        );
-
-
-                    likeButton.addEventListener(
-                        "click",
-                        function() {
-
-                            toggleLike(
-                                song._id,
-                                likeButton
-                            );
-
-                        }
-                    );
-
-
-                    songGrid.appendChild(
-                        card
-                    );
-
-                }
-            );
+                songGrid.appendChild(card);
+            });
         }
 
+        async function toggleLike(songId, button) {
+            const user = JSON.parse(localStorage.getItem("meloraUser") || "null");
+            const userId = user?.id || user?._id;
 
-        /* =========================================
-           LIKE / UNLIKE
-        ========================================= */
-
-        async function toggleLike(
-            songId,
-            button
-        ) {
-
-            const user = JSON.parse(
-                localStorage.getItem(
-                    "meloraUser"
-                ) || "null"
-            );
-
-
-            if (!user || !user.id) {
-
-                showExploreToast(
-                    "Please login first."
-                );
-
+            if (!userId || typeof API_BASE === "undefined") {
+                showExploreToast("Please login first.");
                 return;
             }
-
 
             try {
+                const response = await fetch(`${API_BASE}/api/likes`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ userId, songId })
+                });
 
-                const response =
-                    await fetch(
-                        "fetch(`${API_BASE}/api/likes`)",
-                        {
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body: JSON.stringify({
-                                userId: user.id,
-                                songId: songId
-                            })
-                        }
-                    );
-
-
-                const data =
-                    await response.json();
-
-
+                const data = await response.json();
                 if (!response.ok) {
-
-                    throw new Error(
-                        data.message
-                    );
-
+                    throw new Error(data.message || "Unable to update Like");
                 }
 
-
-                if (
-                    data.message ===
-                    "Song liked"
-                ) {
-
-                    likedSongIds.add(
-                        songId
-                    );
-
-                    button.textContent =
-                        "♥";
-
-                    button.classList.add(
-                        "liked"
-                    );
-
-                    showExploreToast(
-                        "Song added to Liked Songs ❤️"
-                    );
-
+                if (data.message === "Song liked") {
+                    likedSongIds.add(songId);
+                    button.textContent = "♥";
+                    button.classList.add("liked");
+                    showExploreToast("Song added to Liked Songs ❤️");
                 } else {
-
-                    likedSongIds.delete(
-                        songId
-                    );
-
-                    button.textContent =
-                        "♡";
-
-                    button.classList.remove(
-                        "liked"
-                    );
-
-                    showExploreToast(
-                        "Song removed from Liked Songs"
-                    );
-
+                    likedSongIds.delete(songId);
+                    button.textContent = "♡";
+                    button.classList.remove("liked");
+                    showExploreToast("Song removed from Liked Songs");
                 }
 
-
-                /* Update player heart */
-
-                if (
-                    currentSongData &&
-                    currentSongData._id ===
-                    songId
-                ) {
-
-                    const playerButton =
-                        document.getElementById(
-                            "playerLikeButton"
-                        );
-
-
-                    playerButton.textContent =
-                        likedSongIds.has(songId)
-                        ? "♥"
-                        : "♡";
-
+                const activeId = currentSongData?._id || currentSongData?.id;
+                if (currentSongData && activeId === songId) {
+                    const playerButton = document.getElementById("playerLikeButton");
+                    playerButton.textContent = likedSongIds.has(songId) ? "♥" : "♡";
+                    playerButton.classList.toggle("liked", likedSongIds.has(songId));
                 }
-
             } catch (error) {
-
-                console.error(
-                    "Like error:",
-                    error
-                );
-
-                showExploreToast(
-                    "Unable to update Like."
-                );
-
+                console.error("Like error:", error);
+                showExploreToast("Unable to update Like.");
             }
         }
-
-
-        /* =========================================
-           PLAY SONG
-        ========================================= */
 
         function playDynamicSong(song) {
+            currentSongData = song;
+            const songId = song._id || song.id;
 
-            currentSongData =
-                song;
+            document.getElementById("currentSong").textContent = song.title;
+            document.getElementById("currentArtist").textContent = song.artist;
 
-
-            document.getElementById(
-                "currentSong"
-            ).textContent =
-                song.title;
-
-
-            document.getElementById(
-                "currentArtist"
-            ).textContent =
-                song.artist;
-
-
-            const playerButton =
-                document.getElementById(
-                    "playerLikeButton"
-                );
-
-
-            playerButton.textContent =
-                likedSongIds.has(
-                    song._id
-                )
-                ? "♥"
-                : "♡";
-
-
-            playerButton.classList.toggle(
-                "liked",
-                likedSongIds.has(
-                    song._id
-                )
-            );
-
+            const playerButton = document.getElementById("playerLikeButton");
+            const isLiked = songId ? likedSongIds.has(songId) : false;
+            playerButton.textContent = isLiked ? "♥" : "♡";
+            playerButton.classList.toggle("liked", isLiked);
 
             if (currentAudio) {
-
                 currentAudio.pause();
-
                 currentAudio = null;
-
             }
-
 
             if (!song.audioUrl) {
-
-                showExploreToast(
-                    "Audio is not available."
-                );
-
+                showExploreToast("No audio file attached to this song yet.");
                 return;
             }
 
+            currentAudio = new Audio(song.audioUrl);
 
-            currentAudio =
-                new Audio(
-                    song.audioUrl
-                );
+            currentAudio.addEventListener("loadedmetadata", () => {
+                document.getElementById("totalTime").textContent = formatTime(currentAudio.duration);
+            });
 
+            currentAudio.addEventListener("timeupdate", updateProgress);
 
-            currentAudio.addEventListener(
-                "loadedmetadata",
-                function() {
-
-                    document.getElementById(
-                        "totalTime"
-                    ).textContent =
-                        formatTime(
-                            currentAudio.duration
-                        );
-
-                }
-            );
-
-
-            currentAudio.addEventListener(
-                "timeupdate",
-                updateProgress
-            );
-
-
-            currentAudio.addEventListener(
-                "ended",
-                function() {
-
-                    document.getElementById(
-                        "mainPlayButton"
-                    ).textContent =
-                        "▶";
-
-                }
-            );
-
+            currentAudio.addEventListener("ended", () => {
+                document.getElementById("mainPlayButton").textContent = "▶";
+                playAdjacentSong(1);
+            });
 
             currentAudio.play()
-                .then(
-                    function() {
-
-                        document.getElementById(
-                            "mainPlayButton"
-                        ).textContent =
-                            "❚❚";
-
-                    }
-                )
-                .catch(
-                    function() {
-
-                        showExploreToast(
-                            "Unable to play audio."
-                        );
-
-                    }
-                );
+                .then(() => {
+                    document.getElementById("mainPlayButton").textContent = "❚❚";
+                })
+                .catch(() => {
+                    showExploreToast("Unable to play audio.");
+                });
         }
 
-
-        /* =========================================
-           PLAYER LIKE
-        ========================================= */
-
-        document
-            .getElementById(
-                "playerLikeButton"
-            )
-            .addEventListener(
-                "click",
-                function() {
-
-                    if (
-                        !currentSongData
-                    ) {
-
-                        showExploreToast(
-                            "Choose a song first."
-                        );
-
-                        return;
-                    }
-
-
-                    toggleLike(
-                        currentSongData._id,
-                        this
-                    );
-
-                }
+        function playAdjacentSong(step) {
+            if (!displayedSongs.length) return;
+            const currentIdx = displayedSongs.findIndex(
+                (s) => (s._id || s.id) === (currentSongData?._id || currentSongData?.id)
             );
+            const nextIdx =
+                currentIdx === -1
+                    ? 0
+                    : (currentIdx + step + displayedSongs.length) % displayedSongs.length;
+            playDynamicSong(displayedSongs[nextIdx]);
+        }
 
-
-        /* =========================================
-           PLAY / PAUSE
-        ========================================= */
+        document.getElementById("playerLikeButton").addEventListener("click", function () {
+            if (!currentSongData) {
+                showExploreToast("Choose a song first.");
+                return;
+            }
+            const songId = currentSongData._id || currentSongData.id;
+            toggleLike(songId, this);
+        });
 
         function toggleDynamicPlay() {
-
             if (!currentAudio) {
-
-                showExploreToast(
-                    "Choose a song first."
-                );
-
+                if (displayedSongs.length && displayedSongs[0].audioUrl) {
+                    playDynamicSong(displayedSongs[0]);
+                } else {
+                    showExploreToast("Choose a song first.");
+                }
                 return;
             }
 
-
-            if (
-                currentAudio.paused
-            ) {
-
+            if (currentAudio.paused) {
                 currentAudio.play();
-
-                document.getElementById(
-                    "mainPlayButton"
-                ).textContent =
-                    "❚❚";
-
+                document.getElementById("mainPlayButton").textContent = "❚❚";
             } else {
-
                 currentAudio.pause();
-
-                document.getElementById(
-                    "mainPlayButton"
-                ).textContent =
-                    "▶";
-
+                document.getElementById("mainPlayButton").textContent = "▶";
             }
         }
 
-
-        /* =========================================
-           PROGRESS
-        ========================================= */
+        function seekExploreProgress(event) {
+            if (!currentAudio || !currentAudio.duration) return;
+            const rect = event.currentTarget.getBoundingClientRect();
+            const ratio = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
+            currentAudio.currentTime = ratio * currentAudio.duration;
+        }
 
         function updateProgress() {
+            if (!currentAudio) return;
+            const progress = document.getElementById("progress");
+            const currentTime = document.getElementById("currentTime");
 
-            if (!currentAudio) {
+            if (currentAudio.duration) {
+                progress.style.width = ((currentAudio.currentTime / currentAudio.duration) * 100) + "%";
+            }
+            currentTime.textContent = formatTime(currentAudio.currentTime);
+        }
+
+        function formatTime(seconds) {
+            if (!seconds || isNaN(seconds)) return "0:00";
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+            return minutes + ":" + String(remainingSeconds).padStart(2, "0");
+        }
+
+        function selectLanguage(language, btnEl) {
+            document.querySelectorAll("#languageBar .lang-chip").forEach((b) => b.classList.remove("active"));
+            if (btnEl) btnEl.classList.add("active");
+
+            const heading = document.getElementById("trendingHeading");
+
+            if (language === "All") {
+                heading.textContent = "Trending songs";
+                displaySongs(meloraSongs);
                 return;
             }
 
-
-            const progress =
-                document.getElementById(
-                    "progress"
-                );
-
-
-            const currentTime =
-                document.getElementById(
-                    "currentTime"
-                );
-
-
-            if (
-                currentAudio.duration
-            ) {
-
-                const percentage =
-                    (
-                        currentAudio.currentTime /
-                        currentAudio.duration
-                    ) * 100;
-
-
-                progress.style.width =
-                    percentage + "%";
-
+            if (language === "Trending") {
+                heading.textContent = "Trending hits";
+                displaySongs(meloraSongs.filter((s) => Boolean(s.trending)));
+                return;
             }
 
-
-            currentTime.textContent =
-                formatTime(
-                    currentAudio.currentTime
-                );
-        }
-
-
-        /* =========================================
-           FORMAT TIME
-        ========================================= */
-
-        function formatTime(seconds) {
-
-            if (
-                !seconds ||
-                isNaN(seconds)
-            ) {
-
-                return "0:00";
-            }
-
-
-            const minutes =
-                Math.floor(
-                    seconds / 60
-                );
-
-
-            const remainingSeconds =
-                Math.floor(
-                    seconds % 60
-                );
-
-
-            return (
-                minutes +
-                ":" +
-                String(
-                    remainingSeconds
-                ).padStart(
-                    2,
-                    "0"
-                )
+            heading.textContent = `Trending in ${language}`;
+            const matches = meloraSongs.filter(
+                (s) => s.language && s.language.toLowerCase() === language.toLowerCase()
             );
+            displaySongs(matches);
         }
 
-
-        /* =========================================
-           MOOD FILTER
-        ========================================= */
+        function resetFilters() {
+            document.querySelectorAll("#languageBar .lang-chip").forEach((b, idx) => {
+                b.classList.toggle("active", idx === 0);
+            });
+            document.getElementById("trendingHeading").textContent = "Trending songs";
+            displaySongs(meloraSongs);
+        }
 
         function selectMood(mood) {
-
-            const filteredSongs =
-                meloraSongs.filter(
-                    function(song) {
-
-                        return (
-                            song.mood &&
-                            song.mood
-                                .toLowerCase() ===
-                            mood.toLowerCase()
-                        );
-
-                    }
-                );
-
-
-            displaySongs(
-                filteredSongs
+            const filteredSongs = meloraSongs.filter(
+                (song) => song.mood && song.mood.toLowerCase() === mood.toLowerCase()
             );
-
-
-            showExploreToast(
-                filteredSongs.length +
-                " " +
-                mood +
-                " songs found 🎵"
-            );
+            displaySongs(filteredSongs);
+            showExploreToast(filteredSongs.length + " " + mood + " songs found 🎵");
         }
 
-
-        /* =========================================
-           GENRE FILTER
-        ========================================= */
-
-        document
-            .querySelectorAll(
-                ".genre-card"
-            )
-            .forEach(
-                function(button) {
-
-                    button.addEventListener(
-                        "click",
-                        function() {
-
-                            const genreName =
-                                this.querySelector(
-                                    "strong"
-                                ).textContent;
-
-
-                            const filteredSongs =
-                                meloraSongs.filter(
-                                    function(song) {
-
-                                        return (
-
-                                            (
-                                                song.genre &&
-                                                song.genre
-                                                    .toLowerCase()
-                                                    .includes(
-                                                        genreName
-                                                            .toLowerCase()
-                                                    )
-                                            )
-
-                                            ||
-
-                                            (
-                                                song.language &&
-                                                song.language
-                                                    .toLowerCase() ===
-                                                genreName
-                                                    .toLowerCase()
-                                            )
-
-                                        );
-
-                                    }
-                                );
-
-
-                            displaySongs(
-                                filteredSongs
-                            );
-
-
-                            showExploreToast(
-                                filteredSongs.length +
-                                " " +
-                                genreName +
-                                " songs found 🎵"
-                            );
-
-                        }
-                    );
-
-                }
-            );
-
-
-        /* =========================================
-           SEARCH
-        ========================================= */
-
-        document
-            .getElementById(
-                "exploreSearch"
-            )
-            .addEventListener(
-                "input",
-                function() {
-
-                    const value =
-                        this.value
-                            .toLowerCase()
-                            .trim();
-
-
-                    const filteredSongs =
-                        meloraSongs.filter(
-                            function(song) {
-
-                                return (
-
-                                    song.title
-                                        .toLowerCase()
-                                        .includes(
-                                            value
-                                        )
-
-                                    ||
-
-                                    song.artist
-                                        .toLowerCase()
-                                        .includes(
-                                            value
-                                        )
-
-                                    ||
-
-                                    (
-                                        song.language &&
-                                        song.language
-                                            .toLowerCase()
-                                            .includes(
-                                                value
-                                            )
-                                    )
-
-                                    ||
-
-                                    (
-                                        song.genre &&
-                                        song.genre
-                                            .toLowerCase()
-                                            .includes(
-                                                value
-                                            )
-                                    )
-
-                                    ||
-
-                                    (
-                                        song.mood &&
-                                        song.mood
-                                            .toLowerCase()
-                                            .includes(
-                                                value
-                                            )
-                                    )
-
-                                );
-
-                            }
-                        );
-
-
-                    displaySongs(
-                        filteredSongs
-                    );
-
-                }
-            );
-
-
-        /* =========================================
-           TOAST
-        ========================================= */
-
-        function showExploreToast(
-            message
-        ) {
-
-            const toast =
-                document.getElementById(
-                    "toast"
+        document.querySelectorAll(".genre-card").forEach((button) => {
+            button.addEventListener("click", function () {
+                const genreName = this.querySelector("strong").textContent;
+                const filteredSongs = meloraSongs.filter(
+                    (song) =>
+                        (song.genre && song.genre.toLowerCase().includes(genreName.toLowerCase())) ||
+                        (song.language && song.language.toLowerCase() === genreName.toLowerCase())
                 );
+                displaySongs(filteredSongs);
+                showExploreToast(filteredSongs.length + " " + genreName + " songs found 🎵");
+            });
+        });
 
-
-            toast.textContent =
-                message;
-
-
-            toast.classList.add(
-                "show"
+        document.getElementById("exploreSearch").addEventListener("input", function () {
+            const value = this.value.toLowerCase().trim();
+            const filteredSongs = meloraSongs.filter(
+                (song) =>
+                    song.title.toLowerCase().includes(value) ||
+                    song.artist.toLowerCase().includes(value) ||
+                    (song.language && song.language.toLowerCase().includes(value)) ||
+                    (song.genre && song.genre.toLowerCase().includes(value)) ||
+                    (song.mood && song.mood.toLowerCase().includes(value))
             );
+            displaySongs(filteredSongs);
+        });
 
-
-            setTimeout(
-                function() {
-
-                    toast.classList.remove(
-                        "show"
-                    );
-
-                },
-                2500
-            );
+        function showExploreToast(message) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.classList.add("show");
+            setTimeout(() => toast.classList.remove("show"), 2500);
         }
 
-
-        /* =========================================
-           START PAGE
-        ========================================= */
+        function escapeText(str) {
+            if (!str) return "";
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;");
+        }
 
         async function startExplore() {
-
             await loadUserLikes();
-
             await loadSongs();
-
         }
-
 
         startExplore();
 
     </script>
-<script>
 
-async function searchExternalMusic() {
+    <script>
 
-    const query =
-        document.getElementById("externalSearch").value.trim();
+        async function searchExternalMusic() {
+            const query = document.getElementById("externalSearch").value.trim();
+            const results = document.getElementById("externalResults");
 
-    const results =
-        document.getElementById("externalResults");
-
-    if (!query) {
-        results.textContent = "Enter a song or artist name.";
-        return;
-    }
-
-    results.textContent = "Searching external music API...";
-
-    try {
-
-        const response = await fetch(
-            `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&entity=song&limit=10`
-        );
-
-        if (!response.ok) {
-            throw new Error("API request failed");
-        }
-
-        const data = await response.json();
-
-        results.innerHTML = "";
-
-        if (data.results.length === 0) {
-            results.textContent = "No songs found.";
-            return;
-        }
-
-        data.results.forEach(song => {
-
-            const card = document.createElement("div");
-
-            card.className = "liked-song";
-
-            const image = document.createElement("img");
-            image.src = song.artworkUrl100 || "";
-            image.alt = "Album artwork";
-            image.width = 55;
-            image.height = 55;
-
-            const info = document.createElement("div");
-            info.className = "liked-info";
-
-            const title = document.createElement("strong");
-            title.textContent = song.trackName;
-
-            const artist = document.createElement("span");
-            artist.textContent = song.artistName;
-
-            info.append(title, artist);
-            card.append(image, info);
-
-            if (song.previewUrl) {
-                const preview = document.createElement("a");
-                preview.href = song.previewUrl;
-                preview.target = "_blank";
-                preview.rel = "noopener noreferrer";
-                preview.textContent = "Preview";
-                preview.style.marginLeft = "auto";
-                card.append(preview);
+            if (!query) {
+                results.textContent = "Enter a song or artist name.";
+                return;
             }
 
-            results.appendChild(card);
+            results.textContent = "Searching external music API...";
 
-        });
+            try {
+                const response = await fetch(
+                    `https://itunes.apple.com/search?term=${encodeURIComponent(query)}&entity=song&limit=10`
+                );
 
-    } catch (error) {
+                if (!response.ok) {
+                    throw new Error("API request failed");
+                }
 
-        console.error(error);
+                const data = await response.json();
+                results.innerHTML = "";
 
-        results.textContent =
-            "Unable to retrieve external music data.";
+                if (!data.results || data.results.length === 0) {
+                    results.textContent = "No songs found.";
+                    return;
+                }
 
-    }
+                data.results.forEach((song) => {
+                    const card = document.createElement("div");
+                    card.className = "liked-song";
 
-}
+                    const image = document.createElement("img");
+                    image.src = song.artworkUrl100 || "";
+                    image.alt = "Album artwork";
+                    image.width = 55;
+                    image.height = 55;
 
-</script>
+                    const info = document.createElement("div");
+                    info.className = "liked-info";
+
+                    const title = document.createElement("strong");
+                    title.textContent = song.trackName;
+
+                    const artist = document.createElement("span");
+                    artist.textContent = song.artistName;
+
+                    info.append(title, artist);
+                    card.append(image, info);
+
+                    if (song.previewUrl) {
+                        const playBtn = document.createElement("button");
+                        playBtn.type = "button";
+                        playBtn.className = "small-play";
+                        playBtn.textContent = "▶";
+                        playBtn.style.marginLeft = "auto";
+                        playBtn.onclick = () => {
+                            playDynamicSong({
+                                _id: song.trackId,
+                                title: song.trackName,
+                                artist: song.artistName,
+                                language: "External",
+                                mood: "Discovery",
+                                cover: song.artworkUrl100,
+                                audioUrl: song.previewUrl
+                            });
+                        };
+                        card.append(playBtn);
+                    }
+
+                    results.appendChild(card);
+                });
+            } catch (error) {
+                console.error(error);
+                results.textContent = "Unable to retrieve external music data.";
+            }
+        }
+
+    </script>
+
 </body>
 
 </html>

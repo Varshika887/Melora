@@ -37,7 +37,7 @@
                 <p>My Music</p>
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="my-music.html" class="nav-item">
                 <span>❤️</span>
                 <p>Liked Songs</p>
             </a>
@@ -57,19 +57,21 @@
                 <p>Lyra AI</p>
             </a>
 
-            <a href="#" class="nav-item">
-                <span>⚙️</span>
-                <p>Settings</p>
-            </a>
-
-            <a href="#" class="nav-item">
-                <span>👤</span>
-                <p>Profile</p>
-            </a>
-            <a href="#" class="nav-item" onclick="logoutUser()">
-                <span>🚪</span>
-                <p>Logout</p>
-            </a>
+           <a href="settings.html" class="nav-item">
+    <span>⚙</span>
+    <p>Settings</p>
+</a>
+<a href="#" class="nav-item" onclick="logoutUser()">
+    <span>🚪</span>
+    <p>Logout</p>
+</a>
+<a href="profile.html" class="profile-small">
+    <div class="avatar">V</div>
+    <div>
+        <strong>Varshika</strong>
+        <small>View Profile</small>
+    </div>
+</a>
         </nav>
 
     </aside>
@@ -290,223 +292,221 @@
 <script src="js/config.js"></script>
 <script>
     checkLogin();
-</script>
 
-/* ==============================
-   LYRA AI
-============================== */
+    /* ==============================
+       LYRA AI
+    ============================== */
 
-function sendLyraMessage() {
+    function sendLyraMessage() {
 
-    const input = document.getElementById("lyraInput");
+        const input = document.getElementById("lyraInput");
 
-    const message = input.value.trim();
+        const message = input.value.trim();
 
-    if (message === "") {
-        return;
+        if (message === "") {
+            return;
+        }
+
+        addLyraMessage(message, "user");
+
+        input.value = "";
+
+        setTimeout(function() {
+
+            const response = getLyraResponse(message);
+
+            addLyraMessage(response, "ai");
+
+        }, 500);
     }
 
-    addLyraMessage(message, "user");
 
-    input.value = "";
+    /* ENTER KEY */
 
-    setTimeout(function() {
+    function handleLyraKey(event) {
 
-        const response = getLyraResponse(message);
+        if (event.key === "Enter") {
 
-        addLyraMessage(response, "ai");
+            sendLyraMessage();
 
-    }, 500);
-}
+        }
+
+    }
 
 
-/* ENTER KEY */
+    /* QUICK PROMPT */
 
-function handleLyraKey(event) {
+    function useLyraPrompt(message) {
 
-    if (event.key === "Enter") {
+        document.getElementById("lyraInput").value = message;
 
         sendLyraMessage();
 
     }
 
-}
+
+    /* ADD MESSAGE */
+
+    function addLyraMessage(message, type) {
+
+        const container =
+            document.getElementById("lyraMessages");
+
+        const messageDiv =
+            document.createElement("div");
+
+        messageDiv.className =
+            "lyra-message " + type;
 
 
-/* QUICK PROMPT */
+        if (type === "ai") {
 
-function useLyraPrompt(message) {
+            messageDiv.innerHTML = `
+                <div class="lyra-avatar">🤖</div>
 
-    document.getElementById("lyraInput").value = message;
+                <div class="message-content">
+                    <strong>Lyra</strong>
+                    <p>${message}</p>
+                </div>
+            `;
 
-    sendLyraMessage();
+        } else {
 
-}
+            messageDiv.innerHTML = `
+                <div class="message-content user-message">
+                    <p>${message}</p>
+                </div>
+            `;
 
-
-/* ADD MESSAGE */
-
-function addLyraMessage(message, type) {
-
-    const container =
-        document.getElementById("lyraMessages");
-
-    const messageDiv =
-        document.createElement("div");
-
-    messageDiv.className =
-        "lyra-message " + type;
+        }
 
 
-    if (type === "ai") {
+        container.appendChild(messageDiv);
 
-        messageDiv.innerHTML = `
-            <div class="lyra-avatar">🤖</div>
-
-            <div class="message-content">
-                <strong>Lyra</strong>
-                <p>${message}</p>
-            </div>
-        `;
-
-    } else {
-
-        messageDiv.innerHTML = `
-            <div class="message-content user-message">
-                <p>${message}</p>
-            </div>
-        `;
-
+        container.scrollTop =
+            container.scrollHeight;
     }
 
 
-    container.appendChild(messageDiv);
+    /* ==============================
+       LYRA RESPONSES
+    ============================== */
 
-    container.scrollTop =
-        container.scrollHeight;
-}
+    function getLyraResponse(message) {
 
-
-/* ==============================
-   LYRA RESPONSES
-============================== */
-
-function getLyraResponse(message) {
-
-    const text =
-        message.toLowerCase();
+        const text =
+            message.toLowerCase();
 
 
-    if (
-        text.includes("sad") ||
-        text.includes("depressed") ||
-        text.includes("upset")
-    ) {
+        if (
+            text.includes("sad") ||
+            text.includes("depressed") ||
+            text.includes("upset")
+        ) {
+
+            return `
+                I'm here for you 💕
+                Try some calm and emotional songs like
+                <b>Until I Found You</b>,
+                <b>Perfect</b> and
+                <b>Photograph</b>.
+                Sometimes music can make difficult moments feel a little lighter 🌸
+            `;
+
+        }
+
+
+        if (
+            text.includes("study") ||
+            text.includes("studying") ||
+            text.includes("exam")
+        ) {
+
+            return `
+                Study mode activated 📚🎧
+                I recommend calm instrumental,
+                lo-fi and soft music.
+                Try creating a playlist called
+                <b>Focus Time</b>.
+            `;
+
+        }
+
+
+        if (
+            text.includes("romantic") ||
+            text.includes("love")
+        ) {
+
+            return `
+                Aww, romantic mood 💕
+                Try songs like
+                <b>Perfect</b>,
+                <b>Until I Found You</b> and
+                <b>All of Me</b>.
+                Perfect for a soft romantic playlist 🌷
+            `;
+
+        }
+
+
+        if (
+            text.includes("happy") ||
+            text.includes("joy") ||
+            text.includes("fun")
+        ) {
+
+            return `
+                Let's make your mood brighter! 🌸✨
+                Try some upbeat pop,
+                dance and feel-good songs.
+                Your playlist could be called
+                <b>Good Vibes Only</b> 🎶
+            `;
+
+        }
+
+
+        if (
+            text.includes("telugu")
+        ) {
+
+            return `
+                Telugu music sounds perfect! 🎵
+                Try exploring Telugu romantic,
+                melody and energetic songs.
+                You can also create separate
+                Telugu playlists in <b>My Music</b>.
+            `;
+
+        }
+
+
+        if (
+            text.includes("playlist")
+        ) {
+
+            return `
+                Of course! 🎧
+                Tell me the mood or theme of your
+                playlist, like <b>Study</b>,
+                <b>Travel</b>, <b>Love</b> or
+                <b>Chill</b>.
+            `;
+
+        }
+
 
         return `
-            I'm here for you 💕
-            Try some calm and emotional songs like
-            <b>Until I Found You</b>,
-            <b>Perfect</b> and
-            <b>Photograph</b>.
-            Sometimes music can make difficult moments feel a little lighter 🌸
+            I understand 💕
+            Tell me your mood, music language,
+            favourite genre or activity.
+            For example:
+            <b>"Give me songs for travelling"</b>
+            or
+            <b>"I want relaxing music"</b>.
         `;
-
     }
-
-
-    if (
-        text.includes("study") ||
-        text.includes("studying") ||
-        text.includes("exam")
-    ) {
-
-        return `
-            Study mode activated 📚🎧
-            I recommend calm instrumental,
-            lo-fi and soft music.
-            Try creating a playlist called
-            <b>Focus Time</b>.
-        `;
-
-    }
-
-
-    if (
-        text.includes("romantic") ||
-        text.includes("love")
-    ) {
-
-        return `
-            Aww, romantic mood 💕
-            Try songs like
-            <b>Perfect</b>,
-            <b>Until I Found You</b> and
-            <b>All of Me</b>.
-            Perfect for a soft romantic playlist 🌷
-        `;
-
-    }
-
-
-    if (
-        text.includes("happy") ||
-        text.includes("joy") ||
-        text.includes("fun")
-    ) {
-
-        return `
-            Let's make your mood brighter! 🌸✨
-            Try some upbeat pop,
-            dance and feel-good songs.
-            Your playlist could be called
-            <b>Good Vibes Only</b> 🎶
-        `;
-
-    }
-
-
-    if (
-        text.includes("telugu")
-    ) {
-
-        return `
-            Telugu music sounds perfect! 🎵
-            Try exploring Telugu romantic,
-            melody and energetic songs.
-            You can also create separate
-            Telugu playlists in <b>My Music</b>.
-        `;
-
-    }
-
-
-    if (
-        text.includes("playlist")
-    ) {
-
-        return `
-            Of course! 🎧
-            Tell me the mood or theme of your
-            playlist, like <b>Study</b>,
-            <b>Travel</b>, <b>Love</b> or
-            <b>Chill</b>.
-        `;
-
-    }
-
-
-    return `
-        I understand 💕
-        Tell me your mood, music language,
-        favourite genre or activity.
-        For example:
-        <b>"Give me songs for travelling"</b>
-        or
-        <b>"I want relaxing music"</b>.
-    `;
-}
-
 </script>
 
 </body>

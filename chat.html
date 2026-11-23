@@ -37,7 +37,7 @@
                 <p>My Music</p>
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="my-music.html" class="nav-item">
                 <span>♡</span>
                 <p>Liked Songs</p>
             </a>
@@ -60,22 +60,21 @@
 
         <div class="sidebar-bottom">
 
-            <a href="#" class="nav-item">
-                <span>⚙</span>
-                <p>Settings</p>
-            </a>
-
-            <a href="#" class="profile-small">
-
-                <div class="avatar">V</div>
-
-                <div>
-                    <strong>Varshika</strong>
-                    <small>View Profile</small>
-                </div>
-
-            </a>
-
+          <a href="settings.html" class="nav-item">
+    <span>⚙</span>
+    <p>Settings</p>
+</a>
+<a href="#" class="nav-item" onclick="logoutUser()">
+    <span>🚪</span>
+    <p>Logout</p>
+</a>
+<a href="profile.html" class="profile-small">
+    <div class="avatar">V</div>
+    <div>
+        <strong>Varshika</strong>
+        <small>View Profile</small>
+    </div>
+</a>
         </div>
 
     </aside>
@@ -168,6 +167,7 @@
                         type="text"
                         id="conversationSearch"
                         placeholder="Search chats..."
+                        oninput="filterConversations(this.value)"
                     >
 
                 </div>
@@ -178,141 +178,7 @@
                 <div
                     class="conversation-list"
                     id="conversationList"
-                >
-
-                    <button
-                        class="conversation active-conversation"
-                        onclick="openConversation('Ananya')"
-                    >
-
-                        <div class="chat-avatar avatar-pink">
-                            A
-                            <span class="online"></span>
-                        </div>
-
-                        <div class="conversation-info">
-
-                            <strong>
-                                Ananya
-                            </strong>
-
-                            <p>
-                                You: That song is beautiful!
-                            </p>
-
-                        </div>
-
-                        <div class="conversation-time">
-
-                            <small>
-                                8:42 PM
-                            </small>
-
-                            <span>
-                                2
-                            </span>
-
-                        </div>
-
-                    </button>
-
-
-                    <button
-                        class="conversation"
-                        onclick="openConversation('Shreya')"
-                    >
-
-                        <div class="chat-avatar avatar-green">
-                            S
-                        </div>
-
-                        <div class="conversation-info">
-
-                            <strong>
-                                Shreya
-                            </strong>
-
-                            <p>
-                                Listen to this 🎧
-                            </p>
-
-                        </div>
-
-                        <div class="conversation-time">
-
-                            <small>
-                                7:15 PM
-                            </small>
-
-                        </div>
-
-                    </button>
-
-
-                    <button
-                        class="conversation"
-                        onclick="openConversation('Rahul')"
-                    >
-
-                        <div class="chat-avatar avatar-orange">
-                            R
-                        </div>
-
-                        <div class="conversation-info">
-
-                            <strong>
-                                Rahul
-                            </strong>
-
-                            <p>
-                                Let's listen together!
-                            </p>
-
-                        </div>
-
-                        <div class="conversation-time">
-
-                            <small>
-                                Yesterday
-                            </small>
-
-                        </div>
-
-                    </button>
-
-
-                    <button
-                        class="conversation"
-                        onclick="openConversation('Priya')"
-                    >
-
-                        <div class="chat-avatar request-avatar-two">
-                            P
-                        </div>
-
-                        <div class="conversation-info">
-
-                            <strong>
-                                Priya
-                            </strong>
-
-                            <p>
-                                Hey! 👋
-                            </p>
-
-                        </div>
-
-                        <div class="conversation-time">
-
-                            <small>
-                                Mon
-                            </small>
-
-                        </div>
-
-                    </button>
-
-                </div>
+                ></div>
 
             </div>
 
@@ -327,9 +193,12 @@
 
                     <div class="conversation-user">
 
-                        <div class="chat-avatar avatar-pink">
+                        <div
+                            class="chat-avatar avatar-pink"
+                            id="headerAvatar"
+                        >
                             A
-                            <span class="online"></span>
+                            <span class="online" id="headerOnlineDot"></span>
                         </div>
 
                         <div>
@@ -356,7 +225,10 @@
                             🎧
                         </button>
 
-                        <button>
+                        <button
+                            onclick="clearCurrentChat()"
+                            title="Clear Chat"
+                        >
                             ⋮
                         </button>
 
@@ -370,130 +242,7 @@
                 <div
                     class="messages"
                     id="messages"
-                >
-
-                    <div class="message-date">
-                        Today
-                    </div>
-
-
-                    <div class="message received">
-
-                        <div class="message-avatar">
-                            A
-                        </div>
-
-                        <div class="message-content">
-
-                            <span>
-                                Ananya
-                            </span>
-
-                            <p>
-                                Hey! Have you heard this song? 🎵
-                            </p>
-
-                            <small>
-                                8:35 PM
-                            </small>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- SHARED SONG -->
-
-                    <div class="shared-song received">
-
-                        <div class="shared-cover cover-two">
-                            ♫
-                        </div>
-
-                        <div class="shared-info">
-
-                            <small>
-                                SHARED SONG
-                            </small>
-
-                            <strong>
-                                Until I Found You
-                            </strong>
-
-                            <span>
-                                Stephen Sanchez
-                            </span>
-
-                        </div>
-
-                        <button
-                            onclick="playSong('Until I Found You')"
-                        >
-                            ▶
-                        </button>
-
-                    </div>
-
-
-                    <div class="message sent">
-
-                        <div class="message-content">
-
-                            <p>
-                                Yes! I love this one ❤️
-                            </p>
-
-                            <small>
-                                8:38 PM
-                            </small>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="message received">
-
-                        <div class="message-avatar">
-                            A
-                        </div>
-
-                        <div class="message-content">
-
-                            <span>
-                                Ananya
-                            </span>
-
-                            <p>
-                                We should listen together sometime!
-                            </p>
-
-                            <small>
-                                8:40 PM
-                            </small>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="message sent">
-
-                        <div class="message-content">
-
-                            <p>
-                                Let's do it now! 🎧
-                            </p>
-
-                            <small>
-                                8:42 PM
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                ></div>
 
 
                 <!-- SHARED SONG PREVIEW -->
@@ -663,11 +412,512 @@
 
 
     <script src="js/app.js"></script>
-<script src="js/session.js"></script>
-<script src="js/config.js"></script>
-<script>
-    checkLogin();
-</script>
+    <script src="js/session.js"></script>
+    <script src="js/config.js"></script>
+    <script>
+        if (typeof checkLogin === "function") {
+            checkLogin();
+        }
+
+        const STORAGE_KEY = "melora_chats_v1";
+
+        const defaultChats = {
+            Ananya: {
+                initial: "A",
+                avatarClass: "avatar-pink",
+                online: true,
+                status: "● Online",
+                time: "8:42 PM",
+                unread: 2,
+                dateLabel: "Today",
+                items: [
+                    {
+                        kind: "text",
+                        sender: "received",
+                        author: "Ananya",
+                        text: "Hey! Have you heard this song? 🎵",
+                        time: "8:35 PM"
+                    },
+                    {
+                        kind: "song",
+                        sender: "received",
+                        coverClass: "cover-two",
+                        title: "Until I Found You",
+                        artist: "Stephen Sanchez"
+                    },
+                    {
+                        kind: "text",
+                        sender: "sent",
+                        text: "Yes! I love this one ❤️",
+                        time: "8:38 PM"
+                    },
+                    {
+                        kind: "text",
+                        sender: "received",
+                        author: "Ananya",
+                        text: "We should listen together sometime!",
+                        time: "8:40 PM"
+                    },
+                    {
+                        kind: "text",
+                        sender: "sent",
+                        text: "Let's do it now! 🎧",
+                        time: "8:42 PM"
+                    }
+                ]
+            },
+            Shreya: {
+                initial: "S",
+                avatarClass: "avatar-green",
+                online: false,
+                status: "♫ Listening to Late Night Lo-Fi",
+                time: "7:15 PM",
+                unread: 0,
+                dateLabel: "Today",
+                items: [
+                    {
+                        kind: "text",
+                        sender: "received",
+                        author: "Shreya",
+                        text: "Hey Varshika! Found a super chill track for late night study.",
+                        time: "7:12 PM"
+                    },
+                    {
+                        kind: "song",
+                        sender: "received",
+                        coverClass: "cover-three",
+                        title: "Golden Hour",
+                        artist: "JVKE"
+                    },
+                    {
+                        kind: "text",
+                        sender: "received",
+                        author: "Shreya",
+                        text: "Listen to this 🎧",
+                        time: "7:15 PM"
+                    }
+                ]
+            },
+            Rahul: {
+                initial: "R",
+                avatarClass: "avatar-orange",
+                online: true,
+                status: "● Online",
+                time: "Yesterday",
+                unread: 0,
+                dateLabel: "Yesterday",
+                items: [
+                    {
+                        kind: "text",
+                        sender: "received",
+                        author: "Rahul",
+                        text: "Bro your Telugu playlist is fire 🔥",
+                        time: "9:05 PM"
+                    },
+                    {
+                        kind: "text",
+                        sender: "sent",
+                        text: "Thanks! Adding a few more melody tracks tonight.",
+                        time: "9:10 PM"
+                    },
+                    {
+                        kind: "text",
+                        sender: "received",
+                        author: "Rahul",
+                        text: "Let's listen together!",
+                        time: "9:12 PM"
+                    }
+                ]
+            },
+            Priya: {
+                initial: "P",
+                avatarClass: "request-avatar-two",
+                online: false,
+                status: "Last seen Mon",
+                time: "Mon",
+                unread: 0,
+                dateLabel: "Monday",
+                items: [
+                    {
+                        kind: "text",
+                        sender: "received",
+                        author: "Priya",
+                        text: "Hey! 👋",
+                        time: "4:20 PM"
+                    },
+                    {
+                        kind: "text",
+                        sender: "sent",
+                        text: "Hey Priya! How's your week going?",
+                        time: "4:25 PM"
+                    }
+                ]
+            }
+        };
+
+        const shareableSongs = [
+            { title: "Golden Hour", artist: "JVKE", coverClass: "cover-one" },
+            { title: "Until I Found You", artist: "Stephen Sanchez", coverClass: "cover-two" },
+            { title: "Photograph", artist: "Ed Sheeran", coverClass: "cover-three" },
+            { title: "All of Me", artist: "John Legend", coverClass: "cover-four" }
+        ];
+
+        let chatStore = loadChatStore();
+        let activeUser = Object.keys(chatStore)[0] || "Ananya";
+        let pendingSongShare = null;
+
+        function loadChatStore() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return structuredClone(defaultChats);
+                const parsed = JSON.parse(raw);
+                return Object.keys(parsed).length ? parsed : structuredClone(defaultChats);
+            } catch (e) {
+                return structuredClone(defaultChats);
+            }
+        }
+
+        function saveChatStore() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(chatStore));
+            } catch (e) {
+                // Ignore storage quota errors
+            }
+        }
+
+        function formatNowTime() {
+            return new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+        }
+
+        function getPreviewText(chat) {
+            if (!chat.items || !chat.items.length) return "No messages yet";
+            const last = chat.items[chat.items.length - 1];
+            if (last.kind === "song") {
+                return last.sender === "sent"
+                    ? `You shared ♪ ${last.title}`
+                    : `Shared ♪ ${last.title}`;
+            }
+            return last.sender === "sent" ? `You: ${last.text}` : last.text;
+        }
+
+        function renderConversationList(filterText = "") {
+            const listEl = document.getElementById("conversationList");
+            if (!listEl) return;
+
+            const query = filterText.trim().toLowerCase();
+            listEl.innerHTML = "";
+
+            Object.keys(chatStore).forEach((userName) => {
+                const chat = chatStore[userName];
+                const preview = getPreviewText(chat);
+
+                if (
+                    query &&
+                    !userName.toLowerCase().includes(query) &&
+                    !preview.toLowerCase().includes(query)
+                ) {
+                    return;
+                }
+
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className =
+                    "conversation" + (userName === activeUser ? " active-conversation" : "");
+                btn.onclick = () => openConversation(userName);
+
+                const avatarDiv = document.createElement("div");
+                avatarDiv.className = `chat-avatar ${chat.avatarClass || "avatar-pink"}`;
+                avatarDiv.textContent = chat.initial || userName.charAt(0).toUpperCase();
+
+                if (chat.online) {
+                    const dot = document.createElement("span");
+                    dot.className = "online";
+                    avatarDiv.appendChild(dot);
+                }
+
+                const infoDiv = document.createElement("div");
+                infoDiv.className = "conversation-info";
+
+                const nameStrong = document.createElement("strong");
+                nameStrong.textContent = userName;
+
+                const previewP = document.createElement("p");
+                previewP.textContent = preview;
+
+                infoDiv.appendChild(nameStrong);
+                infoDiv.appendChild(previewP);
+
+                const timeDiv = document.createElement("div");
+                timeDiv.className = "conversation-time";
+
+                const timeSmall = document.createElement("small");
+                timeSmall.textContent = chat.time || "Just now";
+                timeDiv.appendChild(timeSmall);
+
+                if (chat.unread > 0) {
+                    const badge = document.createElement("span");
+                    badge.textContent = String(chat.unread);
+                    timeDiv.appendChild(badge);
+                }
+
+                btn.appendChild(avatarDiv);
+                btn.appendChild(infoDiv);
+                btn.appendChild(timeDiv);
+
+                listEl.appendChild(btn);
+            });
+        }
+
+        function renderHeader(userName, chat) {
+            const nameEl = document.getElementById("chatUser");
+            const statusEl = document.getElementById("chatStatus");
+            const avatarEl = document.getElementById("headerAvatar");
+
+            if (nameEl) nameEl.textContent = userName;
+            if (statusEl) statusEl.textContent = chat.status || "● Online";
+
+            if (avatarEl) {
+                avatarEl.className = `chat-avatar ${chat.avatarClass || "avatar-pink"}`;
+                avatarEl.textContent = chat.initial || userName.charAt(0).toUpperCase();
+                if (chat.online) {
+                    const dot = document.createElement("span");
+                    dot.className = "online";
+                    avatarEl.appendChild(dot);
+                }
+            }
+        }
+
+        function renderMessages(userName, chat) {
+            const container = document.getElementById("messages");
+            if (!container) return;
+
+            container.innerHTML = "";
+
+            const dateChip = document.createElement("div");
+            dateChip.className = "message-date";
+            dateChip.textContent = chat.dateLabel || "Today";
+            container.appendChild(dateChip);
+
+            (chat.items || []).forEach((item) => {
+                if (item.kind === "song") {
+                    const card = document.createElement("div");
+                    card.className = `shared-song ${item.sender === "sent" ? "sent" : "received"}`;
+
+                    const cover = document.createElement("div");
+                    cover.className = `shared-cover ${item.coverClass || "cover-two"}`;
+                    cover.textContent = "♫";
+
+                    const info = document.createElement("div");
+                    info.className = "shared-info";
+
+                    const tag = document.createElement("small");
+                    tag.textContent = "SHARED SONG";
+
+                    const titleStrong = document.createElement("strong");
+                    titleStrong.textContent = item.title;
+
+                    const artistSpan = document.createElement("span");
+                    artistSpan.textContent = item.artist;
+
+                    info.appendChild(tag);
+                    info.appendChild(titleStrong);
+                    info.appendChild(artistSpan);
+
+                    const playBtn = document.createElement("button");
+                    playBtn.type = "button";
+                    playBtn.textContent = "▶";
+                    playBtn.onclick = () => {
+                        if (typeof playSong === "function") {
+                            playSong(item.title);
+                        }
+                    };
+
+                    card.appendChild(cover);
+                    card.appendChild(info);
+                    card.appendChild(playBtn);
+                    container.appendChild(card);
+                    return;
+                }
+
+                const msgRow = document.createElement("div");
+                msgRow.className = `message ${item.sender === "sent" ? "sent" : "received"}`;
+
+                if (item.sender !== "sent") {
+                    const avatar = document.createElement("div");
+                    avatar.className = "message-avatar";
+                    avatar.textContent = chat.initial || userName.charAt(0).toUpperCase();
+                    msgRow.appendChild(avatar);
+                }
+
+                const content = document.createElement("div");
+                content.className = "message-content";
+
+                if (item.sender !== "sent") {
+                    const authorSpan = document.createElement("span");
+                    authorSpan.textContent = item.author || userName;
+                    content.appendChild(authorSpan);
+                }
+
+                const p = document.createElement("p");
+                p.textContent = item.text;
+
+                const timeSmall = document.createElement("small");
+                timeSmall.textContent = item.time || formatNowTime();
+
+                content.appendChild(p);
+                content.appendChild(timeSmall);
+                msgRow.appendChild(content);
+                container.appendChild(msgRow);
+            });
+
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function openConversation(userName) {
+            if (!chatStore[userName]) return;
+            activeUser = userName;
+            chatStore[userName].unread = 0;
+            cancelShare();
+            saveChatStore();
+
+            renderHeader(userName, chatStore[userName]);
+            renderMessages(userName, chatStore[userName]);
+            renderConversationList(document.getElementById("conversationSearch")?.value || "");
+        }
+
+        function sendMessage() {
+            const input = document.getElementById("messageInput");
+            const text = input ? input.value.trim() : "";
+
+            if (!text && !pendingSongShare) return;
+
+            const chat = chatStore[activeUser];
+            if (!chat) return;
+
+            const now = formatNowTime();
+            chat.time = now;
+            chat.dateLabel = "Today";
+
+            if (pendingSongShare) {
+                chat.items.push({
+                    kind: "song",
+                    sender: "sent",
+                    coverClass: pendingSongShare.coverClass || "cover-one",
+                    title: pendingSongShare.title,
+                    artist: pendingSongShare.artist
+                });
+                cancelShare();
+            }
+
+            if (text) {
+                chat.items.push({
+                    kind: "text",
+                    sender: "sent",
+                    text,
+                    time: now
+                });
+                input.value = "";
+            }
+
+            saveChatStore();
+            renderMessages(activeUser, chat);
+            renderConversationList(document.getElementById("conversationSearch")?.value || "");
+        }
+
+        function handleMessageKey(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function shareSong() {
+            const picked =
+                shareableSongs[Math.floor(Math.random() * shareableSongs.length)];
+            pendingSongShare = picked;
+
+            const preview = document.getElementById("sharePreview");
+            const songNameEl = document.getElementById("shareSongName");
+            if (songNameEl) songNameEl.textContent = `${picked.title} — ${picked.artist}`;
+            if (preview) preview.classList.add("show");
+        }
+
+        function cancelShare() {
+            pendingSongShare = null;
+            const preview = document.getElementById("sharePreview");
+            if (preview) preview.classList.remove("show");
+        }
+
+        function sharePlaylist() {
+            const chat = chatStore[activeUser];
+            if (!chat) return;
+
+            const now = formatNowTime();
+            chat.time = now;
+            chat.items.push({
+                kind: "text",
+                sender: "sent",
+                text: "Shared my playlist: Chill & Melody Mix 📂🎶",
+                time: now
+            });
+
+            saveChatStore();
+            renderMessages(activeUser, chat);
+            renderConversationList(document.getElementById("conversationSearch")?.value || "");
+        }
+
+        function newChat() {
+            const name = prompt("Enter friend's name to start a chat:");
+            if (!name) return;
+            const cleanName = name.trim();
+            if (!cleanName) return;
+
+            if (!chatStore[cleanName]) {
+                const palette = ["avatar-pink", "avatar-green", "avatar-orange", "request-avatar-two"];
+                const avatarClass = palette[Object.keys(chatStore).length % palette.length];
+                chatStore[cleanName] = {
+                    initial: cleanName.charAt(0).toUpperCase(),
+                    avatarClass,
+                    online: true,
+                    status: "● Online",
+                    time: "Just now",
+                    unread: 0,
+                    dateLabel: "Today",
+                    items: []
+                };
+                saveChatStore();
+            }
+
+            openConversation(cleanName);
+        }
+
+        function clearCurrentChat() {
+            const chat = chatStore[activeUser];
+            if (!chat) return;
+            chat.items = [];
+            chat.unread = 0;
+            saveChatStore();
+            renderMessages(activeUser, chat);
+            renderConversationList(document.getElementById("conversationSearch")?.value || "");
+        }
+
+        function filterConversations(value) {
+            renderConversationList(value);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            openConversation(activeUser);
+
+            const topSearch = document.getElementById("chatSearch");
+            const sideSearch = document.getElementById("conversationSearch");
+            if (topSearch && sideSearch) {
+                topSearch.addEventListener("input", () => {
+                    sideSearch.value = topSearch.value;
+                    filterConversations(topSearch.value);
+                });
+            }
+        });
+    </script>
 
 </body>
 

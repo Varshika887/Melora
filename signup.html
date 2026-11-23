@@ -236,27 +236,19 @@ document
 
 
         try {
+const response = await fetch(`${API_BASE}/api/auth/register`, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        name: name,
+        email: email,
+        password: password
+    })
+});
 
-            const response = await fetch(
-                "fetch(`${API_BASE}/api/auth/register`",
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-
-                    body: JSON.stringify({
-                        name: name,
-                        email: email,
-                        password: password
-                    })
-                }
-            );
-
-
-            const data = await response.json();
-
+const data = await response.json();
 
             if (!response.ok) {
 

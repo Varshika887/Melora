@@ -11,7 +11,9 @@ function selectMood(mood) {
 
     const title = document.getElementById("recommendationTitle");
 
-    title.textContent = mood + " music for you";
+    if (title) {
+        title.textContent = mood + " music for you";
+    }
 
     showToast(
         mood + " mood selected ✨"
@@ -37,13 +39,19 @@ function playSong(songName) {
     const playButton =
         document.getElementById("mainPlayButton");
 
-    songTitle.textContent = songName;
+    if (songTitle) {
+        songTitle.textContent = songName;
+    }
 
-    artist.textContent = "Melora Music";
+    if (artist) {
+        artist.textContent = "Melora Music";
+    }
 
     isPlaying = true;
 
-    playButton.textContent = "Ⅱ";
+    if (playButton) {
+        playButton.textContent = "Ⅱ";
+    }
 
     showToast(
         "Now playing: " + songName
@@ -64,7 +72,7 @@ function togglePlay() {
     const song =
         document.getElementById("currentSong");
 
-    if (song.textContent === "Choose a song") {
+    if (song && song.textContent.trim() === "Choose a song") {
 
         playSong("Golden Hour");
 
@@ -75,13 +83,17 @@ function togglePlay() {
 
     if (isPlaying) {
 
-        button.textContent = "Ⅱ";
+        if (button) {
+            button.textContent = "Ⅱ";
+        }
 
         showToast("Music playing 🎵");
 
     } else {
 
-        button.textContent = "▶";
+        if (button) {
+            button.textContent = "▶";
+        }
 
         showToast("Music paused");
 
@@ -108,46 +120,49 @@ function playFeatured() {
 const searchInput =
     document.getElementById("searchInput");
 
+if (searchInput) {
 
-searchInput.addEventListener(
-    "input",
-    function () {
+    searchInput.addEventListener(
+        "input",
+        function () {
 
-        const searchText =
-            searchInput.value.toLowerCase();
+            const searchText =
+                searchInput.value.toLowerCase();
 
-        const songs =
-            document.querySelectorAll(".song-card");
+            const songs =
+                document.querySelectorAll(".song-card");
 
-        songs.forEach(function (song) {
+            songs.forEach(function (song) {
 
-            const title =
-                song.querySelector("h3")
-                    .textContent
-                    .toLowerCase();
+                const title =
+                    song.querySelector("h3")
+                        .textContent
+                        .toLowerCase();
 
-            const artist =
-                song.querySelector("p")
-                    .textContent
-                    .toLowerCase();
+                const artist =
+                    song.querySelector("p")
+                        .textContent
+                        .toLowerCase();
 
-            if (
-                title.includes(searchText) ||
-                artist.includes(searchText)
-            ) {
+                if (
+                    title.includes(searchText) ||
+                    artist.includes(searchText)
+                ) {
 
-                song.style.display = "block";
+                    song.style.display = "block";
 
-            } else {
+                } else {
 
-                song.style.display = "none";
+                    song.style.display = "none";
 
-            }
+                }
 
-        });
+            });
 
-    }
-);
+        }
+    );
+
+}
 
 
 /* =========================
@@ -158,6 +173,10 @@ function showToast(message) {
 
     const toast =
         document.getElementById("toast");
+
+    if (!toast) {
+        return;
+    }
 
     toast.textContent = message;
 
@@ -179,27 +198,30 @@ function showToast(message) {
 const likeButton =
     document.querySelector(".like-button");
 
+if (likeButton) {
 
-likeButton.addEventListener(
-    "click",
-    function () {
+    likeButton.addEventListener(
+        "click",
+        function () {
 
-        if (likeButton.textContent === "♡") {
+            if (likeButton.textContent === "♡") {
 
-            likeButton.textContent = "♥";
+                likeButton.textContent = "♥";
 
-            showToast("Added to Liked Songs ♡");
+                showToast("Added to Liked Songs ♡");
 
-        } else {
+            } else {
 
-            likeButton.textContent = "♡";
+                likeButton.textContent = "♡";
 
-            showToast("Removed from Liked Songs");
+                showToast("Removed from Liked Songs");
+
+            }
 
         }
+    );
 
-    }
-);
+}
 
 
 /* =========================
@@ -224,6 +246,8 @@ listenButtons.forEach(function (button) {
     );
 
 });
+
+
 /* =========================
    FRIEND REQUESTS
 ========================= */
@@ -267,7 +291,7 @@ function listenTogether(friendName, songName) {
 
 
 /* =========================
-   CHAT
+   CHAT SHORTCUT
 ========================= */
 
 function openChat(friendName) {
@@ -315,112 +339,10 @@ function showAddFriend() {
     }
 
 }
-/* =========================
-   CHAT FUNCTIONS
-========================= */
-
-function sendMessage() {
-
-    const input =
-        document.getElementById("messageInput");
-
-    const message =
-        input.value.trim();
-
-    if (message === "") {
-        return;
-    }
-
-    const messages =
-        document.getElementById("messages");
-
-    const messageDiv =
-        document.createElement("div");
-
-    messageDiv.className =
-        "message sent";
-
-    messageDiv.innerHTML = `
-        <div class="message-content">
-
-            <p>${message}</p>
-
-            <small>Now</small>
-
-        </div>
-    `;
-
-    messages.appendChild(messageDiv);
-
-    input.value = "";
-
-    messages.scrollTop =
-        messages.scrollHeight;
-
-}
-
-
-function handleMessageKey(event) {
-
-    if (event.key === "Enter") {
-
-        sendMessage();
-
-    }
-
-}
 
 
 /* =========================
-   OPEN CHAT
-========================= */
-
-function openConversation(name) {
-
-    const user =
-        document.getElementById("chatUser");
-
-    const status =
-        document.getElementById("chatStatus");
-
-    user.textContent = name;
-
-    status.textContent = "● Online";
-
-    showToast(
-        "Chat opened with " + name + " 💬"
-    );
-
-}
-
-
-/* =========================
-   NEW CHAT
-========================= */
-
-function newChat() {
-
-    const name =
-        prompt(
-            "Enter your friend's name:"
-        );
-
-    if (
-        name &&
-        name.trim() !== ""
-    ) {
-
-        showToast(
-            "New chat started with " + name
-        );
-
-    }
-
-}
-
-
-/* =========================
-   LISTEN TOGETHER
+   LISTEN TOGETHER (CHAT)
 ========================= */
 
 function startListenTogether() {
@@ -434,76 +356,6 @@ function startListenTogether() {
 }
 
 
-/* =========================
-   SHARE SONG
-========================= */
-
-function shareSong() {
-
-    const preview =
-        document.getElementById("sharePreview");
-
-    preview.classList.add("show");
-
-    showToast(
-        "Song selected to share 🎵"
-    );
-
-}
-
-
-/* =========================
-   SHARE PLAYLIST
-========================= */
-
-function sharePlaylist() {
-
-    const messages =
-        document.getElementById("messages");
-
-    const messageDiv =
-        document.createElement("div");
-
-    messageDiv.className =
-        "message sent";
-
-    messageDiv.innerHTML = `
-        <div class="message-content">
-
-            <p>
-                📂 Shared playlist:
-                <strong>Chill Vibes</strong>
-            </p>
-
-            <small>Now</small>
-
-        </div>
-    `;
-
-    messages.appendChild(messageDiv);
-
-    messages.scrollTop =
-        messages.scrollHeight;
-
-    showToast(
-        "Playlist shared 📂"
-    );
-
-}
-
-
-/* =========================
-   CANCEL SHARE
-========================= */
-
-function cancelShare() {
-
-    const preview =
-        document.getElementById("sharePreview");
-
-    preview.classList.remove("show");
-
-}
 /* ==============================
    LOGOUT
 ============================== */

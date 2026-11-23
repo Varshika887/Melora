@@ -76,20 +76,40 @@ body {
 
 /* LOGO */
 
-.brand {
+.brand,
+.logo-area {
     display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
 
     justify-content: center;
 
     margin-bottom: 35px;
 }
 
-.brand img {
+.brand img,
+.logo-area img {
     width: 145px;
 
     height: 145px;
 
+    max-width: 100%;
+
     object-fit: contain;
+}
+
+.logo-area h2 {
+    font-family: Georgia, serif;
+
+    font-size: 20px;
+
+    font-weight: 500;
+
+    color: var(--text);
+
+    margin-top: 8px;
 }
 
 
@@ -1243,10 +1263,15 @@ body {
         padding: 15px 8px;
     }
 
-    .brand img {
+    .brand img,
+    .logo-area img {
         width: 50px;
 
         height: 50px;
+    }
+
+    .logo-area h2 {
+        display: none;
     }
 
     .nav-item {
@@ -2919,6 +2944,8 @@ body {
     height: 480px;
     overflow-y: auto;
     padding: 28px;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -2950,17 +2977,17 @@ body {
     font-size: 21px;
 }
 
-.message-content {
+.lyra-message .message-content {
     max-width: 65%;
 }
 
-.message-content strong {
+.lyra-message .message-content strong {
     display: block;
     margin-bottom: 6px;
     color: var(--sage-dark);
 }
 
-.message-content p {
+.lyra-message .message-content p {
     background: var(--cream);
     padding: 13px 17px;
     border-radius: 15px;
@@ -2968,7 +2995,7 @@ body {
     color: var(--text);
 }
 
-.user-message p {
+.lyra-message .user-message p {
     background: var(--peach-light);
 }
 
@@ -3080,7 +3107,7 @@ body {
         padding: 18px;
     }
 
-    .message-content {
+    .lyra-message .message-content {
         max-width: 80%;
     }
 
@@ -3600,4 +3627,409 @@ body {
 
 .song-like-button.liked {
     color: #d46f6f;
+}
+
+
+/* =========================
+   MY MUSIC PAGE
+========================= */
+
+body.mymusic-page {
+    background: #f4efe6;
+    color: #1b221e;
+    padding-bottom: 106px;
+}
+
+body.mymusic-page .sidebar {
+    background: #ebe4d6;
+    border-right: 1px solid rgba(27, 34, 30, 0.09);
+}
+
+body.mymusic-page .nav-item {
+    color: #5c665f;
+    border-radius: 12px;
+}
+
+body.mymusic-page .nav-item:hover {
+    background: rgba(47, 93, 76, 0.08);
+    color: #1b221e;
+}
+
+body.mymusic-page .nav-item.active {
+    background: #2f5d4c;
+    color: #ffffff;
+    box-shadow: 0 8px 18px rgba(47, 93, 76, 0.22);
+}
+
+body.mymusic-page .avatar {
+    background: linear-gradient(135deg, #d9774d, #df9f3e);
+    color: #ffffff;
+}
+
+body.mymusic-page .main-content {
+    max-width: 1320px;
+}
+
+body.mymusic-page .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 25;
+    background: rgba(244, 239, 230, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(27, 34, 30, 0.09);
+    margin-bottom: 24px;
+}
+
+body.mymusic-page .search-box {
+    background: #ffffff;
+    border: 1px solid rgba(27, 34, 30, 0.09);
+    border-radius: 999px;
+}
+
+body.mymusic-page .search-box:focus-within {
+    border-color: #2f5d4c;
+}
+
+body.mymusic-page .icon-button,
+body.mymusic-page .notification {
+    background: #ffffff;
+    border: 1px solid rgba(27, 34, 30, 0.09);
+    color: #1b221e;
+}
+
+body.mymusic-page .explore-header {
+    padding: 28px 32px;
+    border-radius: 22px;
+    background: linear-gradient(125deg, #e7decb 0%, #f8f5ee 58%, #dceae3 100%);
+    border: 1px solid rgba(27, 34, 30, 0.09);
+    box-shadow: 0 8px 24px rgba(27, 34, 30, 0.04);
+}
+
+body.mymusic-page .explore-header h1 {
+    font-size: clamp(32px, 4vw, 44px);
+    color: #1b221e;
+}
+
+body.mymusic-page .mini-title {
+    color: #2f5d4c;
+}
+
+body.mymusic-page .music-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+body.mymusic-page .stat-card {
+    background: #ffffff;
+    border: 1px solid rgba(27, 34, 30, 0.09);
+    border-radius: 16px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 4px 16px rgba(27, 34, 30, 0.04);
+}
+
+body.mymusic-page .stat-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+    background: rgba(47, 93, 76, 0.12);
+    color: #2f5d4c;
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+body.mymusic-page .stat-card strong {
+    display: block;
+    font-size: 22px;
+    color: #1b221e;
+}
+
+body.mymusic-page .stat-card span {
+    font-size: 12px;
+    color: #5c665f;
+}
+
+body.mymusic-page .section {
+    margin-top: 34px;
+}
+
+body.mymusic-page .see-all {
+    background: #ffffff;
+    border: 1px solid rgba(27, 34, 30, 0.09);
+    color: #1b221e;
+    padding: 8px 15px;
+    border-radius: 999px;
+}
+
+body.mymusic-page .create-playlist-button {
+    background: #2f5d4c;
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+body.mymusic-page .create-playlist-button:hover {
+    background: #224639;
+}
+
+body.mymusic-page .liked-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+body.mymusic-page .liked-song {
+    background: #ffffff;
+    border: 1px solid rgba(27, 34, 30, 0.09);
+    border-radius: 15px;
+    padding: 12px 16px;
+    display: grid;
+    grid-template-columns: 50px 1fr auto auto auto;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 4px 14px rgba(27, 34, 30, 0.03);
+    transition: transform 0.16s ease, box-shadow 0.2s ease;
+}
+
+body.mymusic-page .liked-song:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(27, 34, 30, 0.08);
+}
+
+body.mymusic-page .liked-cover {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    font-size: 20px;
+    overflow: hidden;
+}
+
+body.mymusic-page .liked-info strong {
+    display: block;
+    font-size: 14px;
+    color: #1b221e;
+}
+
+body.mymusic-page .liked-info span {
+    display: block;
+    font-size: 12px;
+    color: #5c665f;
+    margin-top: 2px;
+}
+
+body.mymusic-page .liked-duration {
+    font-size: 11px;
+    font-weight: 600;
+    color: #2f5d4c;
+    background: rgba(47, 93, 76, 0.1);
+    padding: 5px 11px;
+    border-radius: 999px;
+}
+
+body.mymusic-page .small-play {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: #2f5d4c;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+body.mymusic-page .heart-filled {
+    background: transparent;
+    border: none;
+    color: #d9774d;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+body.mymusic-page .playlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+    gap: 16px;
+}
+
+body.mymusic-page .playlist-card {
+    background: #ffffff;
+    border: 1px solid rgba(27, 34, 30, 0.09);
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 5px 16px rgba(27, 34, 30, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.mymusic-page .playlist-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(27, 34, 30, 0.08);
+}
+
+body.mymusic-page .playlist-cover {
+    height: 105px;
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    font-size: 30px;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+body.mymusic-page .playlist-one {
+    background: linear-gradient(135deg, #de7a63, #eba089);
+}
+
+body.mymusic-page .playlist-two {
+    background: linear-gradient(135deg, #476c5c, #769b8a);
+}
+
+body.mymusic-page .playlist-three {
+    background: linear-gradient(135deg, #dfa045, #f0c378);
+}
+
+body.mymusic-page .playlist-info h3 {
+    font-size: 15px;
+    color: #1b221e;
+    margin-bottom: 4px;
+}
+
+body.mymusic-page .playlist-info p {
+    font-size: 12px;
+    color: #5c665f;
+}
+
+body.mymusic-page .new-playlist-card {
+    background: rgba(255, 255, 255, 0.65);
+    border: 1.5px dashed rgba(47, 93, 76, 0.35);
+    border-radius: 18px;
+    padding: 20px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    color: #1b221e;
+}
+
+body.mymusic-page .new-playlist-card span {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(47, 93, 76, 0.12);
+    color: #2f5d4c;
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+}
+
+body.mymusic-page .new-playlist-card small {
+    font-size: 11px;
+    color: #5c665f;
+}
+
+body.mymusic-page .recent-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+body.mymusic-page .recent-card {
+    background: #ffffff;
+    border: 1px solid rgba(27, 34, 30, 0.09);
+    border-radius: 16px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 16px rgba(27, 34, 30, 0.04);
+}
+
+body.mymusic-page .recent-cover {
+    width: 50px;
+    height: 50px;
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+body.mymusic-page .recent-card > div:nth-child(2) {
+    flex: 1;
+    min-width: 0;
+}
+
+body.mymusic-page .recent-card strong {
+    display: block;
+    font-size: 13px;
+    color: #1b221e;
+}
+
+body.mymusic-page .recent-card p {
+    font-size: 11px;
+    color: #5c665f;
+    margin-top: 2px;
+}
+
+body.mymusic-page .recent-card button {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(27, 34, 30, 0.09);
+    background: #f4efe6;
+    color: #1b221e;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+body.mymusic-page .music-player {
+    background: #ffffff;
+    border-top: 1px solid rgba(27, 34, 30, 0.09);
+}
+
+body.mymusic-page .control-buttons .play-button {
+    background: #2f5d4c;
+}
+
+body.mymusic-page .progress {
+    background: #2f5d4c;
+}
+
+body.mymusic-page .toast {
+    background: #1b221e;
+}
+
+@media (max-width: 900px) {
+    body.mymusic-page .music-stats,
+    body.mymusic-page .recent-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 750px) {
+    body.mymusic-page .player-controls {
+        display: flex;
+    }
+
+    body.mymusic-page .liked-song {
+        grid-template-columns: 46px 1fr auto auto;
+    }
+
+    body.mymusic-page .liked-duration {
+        display: none;
+    }
 }
