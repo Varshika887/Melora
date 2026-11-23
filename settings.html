@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Melora</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="assets/Images/melora-logo.png" alt="Melora Logo">
+        </div>
+
+        <nav class="navigation">
+            <a href="index.html" class="nav-item">
+                <span>⌂</span>
+                <p>Home</p>
+            </a>
+            <a href="explore.html" class="nav-item">
+                <span>⌕</span>
+                <p>Explore</p>
+            </a>
+            <a href="my-music.html" class="nav-item">
+                <span>♫</span>
+                <p>My Music</p>
+            </a>
+            <a href="my-music.html" class="nav-item">
+                <span>♡</span>
+                <p>Liked Songs</p>
+            </a>
+            <a href="friends.html" class="nav-item">
+                <span>👥</span>
+                <p>Friends</p>
+            </a>
+            <a href="chat.html" class="nav-item">
+                <span>💬</span>
+                <p>Chat</p>
+            </a>
+            <a href="lyra.html" class="nav-item">
+                <span>🤖</span>
+                <p>Lyra AI</p>
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="settings.html" class="nav-item active">
+                <span>⚙</span>
+                <p>Settings</p>
+            </a>
+            <a href="#" class="nav-item" onclick="handleLogout(event)">
+                <span>🚪</span>
+                <p>Logout</p>
+            </a>
+            <a href="profile.html" class="profile-small">
+                <div class="avatar">V</div>
+                <div>
+                    <strong>Varshika</strong>
+                    <small>View Profile</small>
+                </div>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="mobile-brand">
+                <img src="assets/Images/melora-logo.png" alt="Melora">
+            </div>
+
+            <div class="search-box">
+                <span>⌕</span>
+                <input type="text" id="searchInput" placeholder="Search settings...">
+            </div>
+
+            <div class="top-actions">
+                <div class="top-profile">
+                    <div class="avatar">V</div>
+                </div>
+            </div>
+        </header>
+
+        <section class="section" style="max-width: 720px;">
+            <div class="section-heading">
+                <div>
+                    <p class="mini-title">PREFERENCES</p>
+                    <h2>Settings</h2>
+                </div>
+            </div>
+
+            <div style="background: var(--white); border-radius: 22px; padding: 28px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 20px;">
+                <div>
+                    <label for="audioQualitySelect" style="display: block; font-weight: 600; margin-bottom: 8px;">Audio Quality</label>
+                    <select id="audioQualitySelect" style="width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--cream-dark); background: var(--cream); color: var(--text);">
+                        <option value="Normal">Normal (Data Saver)</option>
+                        <option value="High" selected>High Quality</option>
+                        <option value="Lossless">Lossless Studio</option>
+                    </select>
+                </div>
+
+                <label style="display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer;">
+                    <span>
+                        <strong>Friend Listening Activity</strong>
+                        <small style="display: block; color: var(--text-light);">Show what songs you are playing to friends</small>
+                    </span>
+                    <input type="checkbox" id="activityToggle" checked>
+                </label>
+
+                <label style="display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer;">
+                    <span>
+                        <strong>Chat &amp; Lyra Notifications</strong>
+                        <small style="display: block; color: var(--text-light);">Show toast alerts for messages and music tips</small>
+                    </span>
+                    <input type="checkbox" id="notificationsToggle" checked>
+                </label>
+
+                <div style="display: flex; gap: 12px; margin-top: 6px;">
+                    <button type="button" class="primary-button" onclick="saveSettings()">Save Settings</button>
+                    <button type="button" class="secondary-button" onclick="resetLocalData()">Reset Local Data</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="toast" id="toast">Settings saved</div>
+
+    <script src="js/app.js"></script>
+    <script src="js/session.js"></script>
+    <script src="js/config.js"></script>
+    <script>
+        if (typeof checkLogin === "function") {
+            checkLogin();
+        }
+
+        const SETTINGS_KEY = "melora_settings_v1";
+
+        function loadSettings() {
+            const saved = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "null");
+            if (!saved) return;
+            document.getElementById("audioQualitySelect").value = saved.audioQuality || "High";
+            document.getElementById("activityToggle").checked = saved.activity !== false;
+            document.getElementById("notificationsToggle").checked = saved.notifications !== false;
+        }
+
+        function saveSettings() {
+            const settings = {
+                audioQuality: document.getElementById("audioQualitySelect").value,
+                activity: document.getElementById("activityToggle").checked,
+                notifications: document.getElementById("notificationsToggle").checked
+            };
+            localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+            if (typeof showToast === "function") {
+                showToast("Settings saved ✓");
+            }
+        }
+
+        function resetLocalData() {
+            localStorage.removeItem("melora_chats_v1");
+            localStorage.removeItem("melora_profile_v1");
+            localStorage.removeItem(SETTINGS_KEY);
+            if (typeof showToast === "function") {
+                showToast("Local data reset");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", loadSettings);
+    </script>
+</body>
+
+</html>
